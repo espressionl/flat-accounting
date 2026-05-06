@@ -122,10 +122,10 @@ function format_date(string $date): string {
 }
 
 function current_boekjaar(): string {
-    // Boekjaar loopt van juli t/m juni (RT tafeljarensysteem)
+    // Boekjaar loopt van april t/m maart
     $month = (int)date('n');
     $year = (int)date('Y');
-    if ($month >= 7) {
+    if ($month >= 4) {
         return $year . '-' . ($year + 1);
     }
     return ($year - 1) . '-' . $year;

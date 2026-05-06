@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/helpers.php';
 
 $page = $_GET['page'] ?? 'dashboard';
-$allowed = ['dashboard', 'leden', 'categorieen', 'kosten', 'facturen', 'boekingen'];
+$allowed = ['dashboard', 'leden', 'categorieen', 'kosten', 'facturen', 'boekingen', 'begroting', 'rapportage'];
 
 if (!in_array($page, $allowed)) {
     $page = 'dashboard';
@@ -29,6 +29,8 @@ $flash = get_flash();
             <li><a href="?page=kosten" class="<?= $page === 'kosten' ? 'active' : '' ?>">Kosten</a></li>
             <li><a href="?page=facturen" class="<?= $page === 'facturen' ? 'active' : '' ?>">Facturen</a></li>
             <li><a href="?page=boekingen" class="<?= $page === 'boekingen' ? 'active' : '' ?>">Bankboekingen</a></li>
+            <li><a href="?page=begroting" class="<?= $page === 'begroting' ? 'active' : '' ?>">Begroting</a></li>
+            <li><a href="?page=rapportage" class="<?= $page === 'rapportage' ? 'active' : '' ?>">Rapportage</a></li>
         </ul>
     </nav>
 
