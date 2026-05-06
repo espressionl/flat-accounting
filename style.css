@@ -215,6 +215,24 @@ input:focus, select:focus, textarea:focus {
 .badge-betaald { background: #d4edda; color: #155724; }
 .badge-deels   { background: #d1ecf1; color: #0c5460; }
 
+/* Bonnetje thumbnail */
+.bonnetje-thumb img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--rt-border);
+    vertical-align: middle;
+    transition: transform .2s;
+}
+.bonnetje-thumb img:hover {
+    transform: scale(3);
+    z-index: 10;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,.3);
+}
+.text-muted { color: #ccc; }
+
 /* Actions row */
 .actions {
     display: flex;

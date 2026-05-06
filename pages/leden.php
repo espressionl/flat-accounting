@@ -2,10 +2,8 @@
 // Leden beheer
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $leden = yaml_read('leden');
-
     if ($_POST['action'] === 'add') {
-        $leden[] = [
+        yaml_save('leden', [
             'id' => generate_id(),
             'naam' => trim($_POST['naam']),
             'email' => trim($_POST['email']),
@@ -15,14 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             'plaats' => trim($_POST['plaats'] ?? ''),
             'actief' => true,
             'aangemaakt' => date('Y-m-d'),
-        ];
-        yaml_write('leden', $leden);
+        ]);
         flash('Lid toegevoegd.');
     }
 
     if ($_POST['action'] === 'delete') {
-        $leden = array_filter($leden, fn($l) => $l['id'] !== $_POST['id']);
-        yaml_write('leden', array_values($leden));
+        yaml_delete('leden', $_POST['id']);
         flash('Lid verwijderd.');
     }
 

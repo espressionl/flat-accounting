@@ -7,18 +7,10 @@ use Dompdf\Options;
 $id = $_GET['id'] ?? '';
 if (!$id) { http_response_code(400); exit('Geen factuur ID'); }
 
-$facturen = yaml_read('facturen');
-$factuur = null;
-foreach ($facturen as $f) {
-    if ($f['id'] === $id) { $factuur = $f; break; }
-}
+$factuur = yaml_find('facturen', $id);
 if (!$factuur) { http_response_code(404); exit('Factuur niet gevonden'); }
 
-$leden = yaml_read('leden');
-$lid = null;
-foreach ($leden as $l) {
-    if ($l['id'] === $factuur['lid_id']) { $lid = $l; break; }
-}
+$lid = yaml_find('leden', $factuur['lid_id']);
 $lid_naam = $lid['naam'] ?? 'Onbekend';
 $lid_bedrijf = $lid['bedrijf'] ?? '';
 $lid_adres = $lid['adres'] ?? '';

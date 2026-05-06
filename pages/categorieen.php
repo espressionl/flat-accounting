@@ -2,21 +2,17 @@
 // Categorieën beheer
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $cats = yaml_read('categorieen');
-
     if ($_POST['action'] === 'add') {
-        $cats[] = [
+        yaml_save('categorieen', [
             'id' => generate_id(),
             'naam' => trim($_POST['naam']),
-            'type' => $_POST['type'], // inkomsten of uitgaven
-        ];
-        yaml_write('categorieen', $cats);
+            'type' => $_POST['type'],
+        ]);
         flash('Categorie toegevoegd.');
     }
 
     if ($_POST['action'] === 'delete') {
-        $cats = array_filter($cats, fn($c) => $c['id'] !== $_POST['id']);
-        yaml_write('categorieen', array_values($cats));
+        yaml_delete('categorieen', $_POST['id']);
         flash('Categorie verwijderd.');
     }
 
@@ -28,16 +24,20 @@ $cats = yaml_read('categorieen');
 
 // Standaard categorieën aanmaken als er geen zijn
 if (empty($cats)) {
-    $cats = [
-        ['id' => generate_id(), 'naam' => 'Contributie', 'type' => 'inkomsten'],
-        ['id' => generate_id(), 'naam' => 'Activiteiten', 'type' => 'uitgaven'],
-        ['id' => generate_id(), 'naam' => 'Bestuurskosten', 'type' => 'uitgaven'],
-        ['id' => generate_id(), 'naam' => 'Huur / Locatie', 'type' => 'uitgaven'],
-        ['id' => generate_id(), 'naam' => 'Nationaal (RT NL)', 'type' => 'uitgaven'],
-        ['id' => generate_id(), 'naam' => 'Overige inkomsten', 'type' => 'inkomsten'],
-        ['id' => generate_id(), 'naam' => 'Overige uitgaven', 'type' => 'uitgaven'],
+    $defaults = [
+        ['naam' => 'Contributie', 'type' => 'inkomsten'],
+        ['naam' => 'Activiteiten', 'type' => 'uitgaven'],
+        ['naam' => 'Bestuurskosten', 'type' => 'uitgaven'],
+        ['naam' => 'Huur / Locatie', 'type' => 'uitgaven'],
+        ['naam' => 'Nationaal (RT NL)', 'type' => 'uitgaven'],
+        ['naam' => 'Overige inkomsten', 'type' => 'inkomsten'],
+        ['naam' => 'Overige uitgaven', 'type' => 'uitgaven'],
     ];
-    yaml_write('categorieen', $cats);
+    foreach ($defaults as $d) {
+        $d['id'] = generate_id();
+        yaml_save('categorieen', $d);
+    }
+    $cats = yaml_read('categorieen');
 }
 ?>
 

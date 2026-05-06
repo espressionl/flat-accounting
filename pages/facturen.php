@@ -2,10 +2,8 @@
 // Facturen (contributie)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $facturen = yaml_read('facturen');
-
     if ($_POST['action'] === 'add') {
-        $facturen[] = [
+        $factuur = [
             'id' => generate_id(),
             'nummer' => next_factuurnummer(),
             'lid_id' => $_POST['lid_id'],
@@ -13,12 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             'vervaldatum' => date('Y-m-d', strtotime($_POST['datum'] . ' +30 days')),
             'omschrijving' => trim($_POST['omschrijving']),
             'bedrag' => (float)$_POST['bedrag'],
-            'status' => 'open', // open, deels, betaald
+            'status' => 'open',
             'betaald' => 0.0,
             'aangemaakt' => date('Y-m-d H:i:s'),
         ];
-        yaml_write('facturen', $facturen);
-        flash('Factuur aangemaakt: ' . $facturen[count($facturen)-1]['nummer']);
+        yaml_save('facturen', $factuur);
+        flash('Factuur aangemaakt: ' . $factuur['nummer']);
     }
 
     if ($_POST['action'] === 'bulk') {
@@ -30,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
         foreach ($leden as $lid) {
             if (!($lid['actief'] ?? true)) continue;
-            $facturen[] = [
+            $factuur = [
                 'id' => generate_id(),
                 'nummer' => next_factuurnummer(),
                 'lid_id' => $lid['id'],
@@ -42,16 +40,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 'betaald' => 0.0,
                 'aangemaakt' => date('Y-m-d H:i:s'),
             ];
-            // Re-read to get correct next nummer
-            yaml_write('facturen', $facturen);
+            yaml_save('facturen', $factuur);
             $count++;
         }
         flash("{$count} facturen aangemaakt voor alle leden.");
     }
 
+    if ($_POST['action'] === 'koppel_boeking') {
+        $factuur_id = $_POST['factuur_id'];
+        $boeking_id = $_POST['boeking_id'] ?? '';
+        $boekingen = yaml_read('boekingen');
+        $factuur = yaml_find('facturen', $factuur_id);
+
+        // Remove existing coupling from any boeking pointing to this factuur
+        foreach ($boekingen as &$b) {
+            if (!empty($b['factuur_id']) && $b['factuur_id'] === $factuur_id) {
+                unset($b['factuur_id']);
+                yaml_save('boekingen', $b);
+            }
+        }
+        unset($b);
+
+        // Reset factuur betaald status
+        if ($factuur) {
+            $factuur['betaald'] = 0.0;
+            $factuur['status'] = 'open';
+        }
+
+        // Set new coupling if selected
+        if (!empty($boeking_id)) {
+            $boeking = yaml_find('boekingen', $boeking_id);
+            if ($boeking && $factuur) {
+                $boeking['factuur_id'] = $factuur_id;
+                yaml_save('boekingen', $boeking);
+
+                $factuur['betaald'] = min($factuur['bedrag'], abs($boeking['bedrag']));
+                $factuur['status'] = $factuur['betaald'] >= $factuur['bedrag'] ? 'betaald' : 'deels';
+            }
+        }
+
+        if ($factuur) yaml_save('facturen', $factuur);
+
+        flash('Koppeling bijgewerkt.');
+        header('Location: ?page=facturen');
+        exit;
+    }
+
     if ($_POST['action'] === 'delete') {
-        $facturen = array_filter($facturen, fn($f) => $f['id'] !== $_POST['id']);
-        yaml_write('facturen', array_values($facturen));
+        yaml_delete('facturen', $_POST['id']);
         flash('Factuur verwijderd.');
     }
 
@@ -63,6 +99,15 @@ $facturen = yaml_read('facturen');
 $leden = yaml_read('leden');
 $leden_map = [];
 foreach ($leden as $l) $leden_map[$l['id']] = $l['naam'];
+
+$boekingen = yaml_read('boekingen');
+// Map: factuur_id -> boeking
+$factuur_boeking_map = [];
+foreach ($boekingen as $b) {
+    if (!empty($b['factuur_id'])) $factuur_boeking_map[$b['factuur_id']] = $b;
+}
+// Available "bij" boekingen not yet linked to a factuur
+$beschikbare_boekingen = array_filter($boekingen, fn($b) => $b['type'] === 'bij' && empty($b['factuur_id']));
 
 usort($facturen, fn($a, $b) => strcmp($b['datum'], $a['datum']));
 ?>
@@ -143,6 +188,7 @@ usort($facturen, fn($a, $b) => strcmp($b['datum'], $a['datum']));
                     <th class="text-right">Bedrag</th>
                     <th class="text-right">Betaald</th>
                     <th>Status</th>
+                    <th>Bankboeking</th>
                     <th></th>
                 </tr>
             </thead>
@@ -157,6 +203,31 @@ usort($facturen, fn($a, $b) => strcmp($b['datum'], $a['datum']));
                     <td class="text-right"><?= format_money($f['betaald']) ?></td>
                     <td>
                         <span class="badge badge-<?= $f['status'] ?>"><?= $f['status'] ?></span>
+                    </td>
+                    <td>
+                        <?php
+                        $huidige_b = $factuur_boeking_map[$f['id']] ?? null;
+                        $matching_boekingen = array_filter($beschikbare_boekingen, fn($b) => abs($b['bedrag'] - $f['bedrag']) < 0.01);
+                        ?>
+                        <?php if ($huidige_b || !empty($matching_boekingen)): ?>
+                        <form method="post" style="display:inline">
+                            <input type="hidden" name="action" value="koppel_boeking">
+                            <input type="hidden" name="factuur_id" value="<?= $f['id'] ?>">
+                            <select name="boeking_id" onchange="this.form.submit()">
+                                <option value="">-- Geen boeking --</option>
+                                <?php if ($huidige_b):
+                                    $label = $huidige_b['datum'] . ' ' . mb_strimwidth($huidige_b['omschrijving'], 0, 25, '…');
+                                ?>
+                                <option value="<?= $huidige_b['id'] ?>" selected><?= htmlspecialchars($label) ?></option>
+                                <?php endif; ?>
+                                <?php foreach ($matching_boekingen as $b):
+                                    $label = $b['datum'] . ' ' . mb_strimwidth($b['omschrijving'], 0, 25, '…');
+                                ?>
+                                <option value="<?= $b['id'] ?>"><?= htmlspecialchars($label) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </form>
+                        <?php endif; ?>
                     </td>
                     <td>
                         <a href="factuur_pdf.php?id=<?= $f['id'] ?>" class="btn btn-primary btn-small">PDF</a>
