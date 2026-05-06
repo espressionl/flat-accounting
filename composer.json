@@ -1,0 +1,6 @@
+{
+    "require": {
+        "symfony/yaml": "^7.4",
+        "dompdf/dompdf": "^3.1"
+    }
+}

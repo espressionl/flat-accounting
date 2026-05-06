@@ -1,0 +1,310 @@
+- generic [active] [ref=e1]:
+  - link "Ga naar inhoud" [ref=e2] [cursor=pointer]:
+    - /url: "#content"
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e8]:
+          - generic [ref=e12]:
+            - link " Facebook" [ref=e13] [cursor=pointer]:
+              - /url: https://www.facebook.com/roundtablenl
+              - text: 
+              - generic [ref=e14]: Facebook
+            - link " X" [ref=e15] [cursor=pointer]:
+              - /url: https://twitter.com/Roundtable_nl
+              - text: 
+              - generic [ref=e16]: X
+            - link " Instagram" [ref=e17] [cursor=pointer]:
+              - /url: https://www.instagram.com/roundtable_nl/
+              - text: 
+              - generic [ref=e18]: Instagram
+            - link " LinkedIn" [ref=e19] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/round-table-nl/
+              - text: 
+              - generic [ref=e20]: LinkedIn
+            - link " YouTube" [ref=e21] [cursor=pointer]:
+              - /url: https://www.youtube.com/channel/UCvyFerA0ICd3TvQ0xAVs4dw/
+              - text: 
+              - generic [ref=e22]: YouTube
+          - generic [ref=e25]:
+            - link "Tafelaar aanmelden" [ref=e26] [cursor=pointer]:
+              - /url: https://roundtable.nl/veelgestelde-vragen/ik-ben-tafelaar-en-ik-ken-een-geschikte-potentiele-tafelaar-maar-niet-voor-mijn-tafel-wat-kan-ik-doen/
+            - text: "|"
+            - link "Een donatie doen" [ref=e27] [cursor=pointer]:
+              - /url: https://roundtable.nl/doneren/
+            - text: "|"
+            - link "Made by a Tabler" [ref=e28] [cursor=pointer]:
+              - /url: https://roundtable.nl/veelgestelde-vragen/made-by-a-tabler-vader-geworden/
+            - text: "|"
+            - link "Tabler.world (Leden login)" [ref=e29] [cursor=pointer]:
+              - /url: https://nl.roundtable.world/nl/
+        - generic [ref=e31]:
+          - link "Round Table The Netherlands Logo" [ref=e33] [cursor=pointer]:
+            - /url: https://roundtable.nl/
+            - img "Round Table The Netherlands Logo" [ref=e34]
+          - navigation "Main Menu" [ref=e35]:
+            - list:
+              - listitem [ref=e36] [cursor=pointer]:
+                - link "Over ons" [ref=e37]:
+                  - /url: https://roundtable.nl/over-ons/
+                  - generic [ref=e38]: Over ons
+                  - generic [ref=e40]: 
+              - listitem [ref=e41] [cursor=pointer]:
+                - link "Service" [ref=e42]:
+                  - /url: https://roundtable.nl/service/
+                  - generic [ref=e44]: 
+                  - generic [ref=e45]: Service
+                  - generic [ref=e47]: 
+              - listitem [ref=e48] [cursor=pointer]:
+                - link "Sponsoren" [ref=e49]:
+                  - /url: https://roundtable.nl/sponsoren/
+                  - generic [ref=e51]: 
+                  - generic [ref=e52]: Sponsoren
+              - listitem [ref=e53] [cursor=pointer]:
+                - link "Internationaal" [ref=e54]:
+                  - /url: https://roundtable.nl/internationaal/
+                  - generic [ref=e56]: 
+                  - generic [ref=e57]: Internationaal
+              - listitem [ref=e58] [cursor=pointer]:
+                - link "Webshop" [ref=e59]:
+                  - /url: https://shop.roundtable.nl
+                  - generic [ref=e61]: 
+                  - generic [ref=e62]: Webshop
+              - listitem [ref=e63] [cursor=pointer]:
+                - link "Contact" [ref=e64]:
+                  - /url: https://roundtable.nl/contact/
+                  - generic [ref=e66]: 
+                  - generic [ref=e67]: Contact
+                  - generic [ref=e69]: 
+          - text:   -  -  -  --  --  --  --  --  -  --  --  --  --  --  --  --  --  -  -  -    -  -  -       - 
+    - main [ref=e70]:
+      - generic [ref=e74]:
+        - generic [ref=e76]:
+          - link "Tafelaar-gezocht-V2-RoundTable" [ref=e81] [cursor=pointer]:
+            - /url: https://roundtable.nl/veelgestelde-vragen/ik-ben-tafelaar-en-ik-ken-een-geschikte-potentiele-tafelaar-maar-niet-voor-mijn-tafel-wat-kan-ik-doen/
+          - link "magazine" [ref=e86] [cursor=pointer]:
+            - /url: https://roundtable.nl/veelgestelde-vragen/ik-wil-een-artikel-aanleveren-hoe-doe-ik-dat/
+          - link "Tablerworld" [ref=e91] [cursor=pointer]:
+            - /url: https://nl.roundtable.world/nl/
+        - generic [ref=e95]:
+          - heading "AGM 2026 – Bergen op Zoom" [level=2] [ref=e97]
+          - generic [ref=e98]:
+            - paragraph [ref=e99]:
+              - text: De
+              - link "AGM" [ref=e100]
+              - text: "2026 komt steeds dichterbij: van vrijdag 5 juni t/m zondag 7 juni 2026 barst het feest los in het prachtige Bergen op Zoom. Het belooft dit jaar een groots en onvergetelijk evenement te worden!"
+            - paragraph [ref=e101]:
+              - strong [ref=e102]: Hoogtepunten programma
+            - paragraph [ref=e103]:
+              - text: "– Vrijdagavond: Welkomfeest met bourgondisch feestmaal in Het Markiezenhof."
+              - text: "– Zaterdag: Jaarlijkse Ledenvergadering (incl. lunch & borrel) in De St. Gertrudiskerk."
+              - text: "– Zaterdagavond: Galadiner & Apotheose in Het Groot Arsenaal."
+            - paragraph [ref=e104]:
+              - text: Een schitterend programma?
+              - emphasis [ref=e105]: Check.
+              - text: Adembenemende locaties?
+              - emphasis [ref=e106]: Check.
+              - text: Een weekend vol verbinding, inspiratie en beleving?
+              - emphasis [ref=e107]: Dubbelcheck!
+            - paragraph [ref=e108]:
+              - text: Kortom
+              - link "AGM" [ref=e109]
+              - text: 2026 wordt hét hoogtepunt van het jaar. Mis het dus niet!
+            - paragraph [ref=e110]:
+              - generic [ref=e111]:
+                - text: Boek je verblijf in het
+                - link "AGM" [ref=e112]
+                - text: Tafel-Hotel
+              - text: Verzeker jezelf van comfort in het stijlvolle Fletcher Wellness-Hotel Stadspark op loopafstand van alle event-locaties.
+            - paragraph [ref=e113]:
+              - text: Sponsorpakketten
+              - text: We bieden diverse sponsorpakketten aan tijdens de
+              - link "AGM" [ref=e114]
+              - text: 2026. Benieuwd naar de mogelijkheden?
+              - link "Klik hier!" [ref=e115] [cursor=pointer]:
+                - /url: https://event.inchecksysteem.nl/event/MYMmv3Qj-nlagm-2026-5-7-juni-bergen-op-zoomenagm-2026-5-7-juni-bergen-op-zoom/shop/owespxhDaNhTtvVZ/order?wizardStep=step-two
+            - paragraph [ref=e116]:
+              - text: Wij kijken er enorm naar uit om samen met jou
+              - link "AGM" [ref=e117]
+              - text: 2026 onvergetelijk te maken!
+          - link "Bestel je tickets!" [ref=e119] [cursor=pointer]:
+            - /url: https://event.inchecksysteem.nl/event/MYMmv3Qj-nlagm-2026-5-7-juni-bergen-op-zoomenagm-2026-5-7-juni-bergen-op-zoom/shop/owespxhDaNhTtvVZ
+            - generic [ref=e120]: Bestel je tickets!
+        - generic [ref=e134]:
+          - generic [ref=e137]:
+            - heading [level=3]
+            - heading "De Nederlandsche Tafelronde staat voor:" [level=3] [ref=e138]
+          - generic [ref=e140]:
+            - generic [ref=e142]: 
+            - heading "Vriendschap" [level=4] [ref=e144]
+            - paragraph [ref=e146]: De Tafel verrijkt vriendschap en wederzijds begrip. Je ontwikkelt vriendschappen voor het leven. Op lokaal, nationaal en internationaal niveau. Waar je ook ter wereld komt, een Tafelaar is een vriend die je altijd zal helpen.
+          - generic [ref=e148]:
+            - generic [ref=e150]: 
+            - heading "Zelfontplooiing" [level=4] [ref=e152]
+            - paragraph [ref=e154]: Tafelavonden zijn vaak het platform van boeiende discussies. Je leert veel van Tafelaars met totaal andere beroepen, inzichten en persoonlijke ervaringen. Doordat vertrouwen het sleutelwoord van de Tafel is kun je al jouw uitdagingen en ervaringen delen om jezelf en mede Tafelaars sterker te maken.
+          - generic [ref=e156]:
+            - generic [ref=e158]: 
+            - heading "Service" [level=4] [ref=e160]
+            - paragraph [ref=e162]: Een Tafelaar is betrokken bij de lokale, nationale en internationale maatschappij. Je draagt je steentje bij door lokale en landelijke serviceprojecten actief en op eigen wijze te steunen. Daarbij neemt jouw Tafel een gezamenlijk initiatief en zorgt de landelijke Tafel ook altijd voor ondersteuning en initiatie van mooie service projecten.
+          - generic [ref=e165]:
+            - heading "Animatiefilm" [level=3] [ref=e166]
+            - paragraph [ref=e167]: Regelmatig krijgen wij de vraag wat de Nederlandsche Tafelronde nou eigenlijk is en wat een lokale Tafelronde allemaal doet. En elke keer wanneer je het aan iemand vraagt kan het zijn dat er net een andere uitleg gegeven wordt. De één heeft het over zijn persoonlijke ontwikkeling, sommige vertellen over de avondjes in de kroeg en andere focussen hun uitleg vooral op de verschillende service projecten die ze doen. Maar het blijft lastig om een complete plaatje uit te leggen. Onze nieuwste animatiefilm legt het eenvoudig uit!
+          - iframe [ref=e173]:
+            - generic [active] [ref=f2e1]:
+              - generic "YouTube Video Player" [ref=f2e3]
+              - generic [ref=f2e5]:
+                - generic:
+                  - generic:
+                    - button "Play video" [ref=f2e10] [cursor=pointer]
+                    - button "Hide player controls" [ref=f2e12] [cursor=pointer]
+                    - generic [ref=f2e14]:
+                      - generic [ref=f2e19]:
+                        - generic [ref=f2e20]:
+                          - link "de Nederlandsche Tafelronde - Wat is dat nu eigenlijk?" [ref=f2e21] [cursor=pointer]:
+                            - /url: https://www.youtube.com/watch?v=yfDs8p6Cja8
+                          - link "Round Table The Netherlands" [ref=f2e22] [cursor=pointer]:
+                            - /url: /channel/UCvyFerA0ICd3TvQ0xAVs4dw
+                            - generic [ref=f2e23]: Round Table The Netherlands
+                        - generic [ref=f2e24]:
+                          - button [ref=f2e25] [cursor=pointer]
+                          - generic [ref=f2e27]:
+                            - generic: Round Table The Netherlands
+                            - generic: 116 subscribers
+                      - generic [ref=f2e28]:
+                        - button "Share" [ref=f2e31] [cursor=pointer]:
+                          - generic [ref=f2e35]:
+                            - img
+                        - link "Watch on YouTube" [ref=f2e42] [cursor=pointer]:
+                          - /url: https://www.youtube.com/watch?v=yfDs8p6Cja8
+                          - generic [ref=f2e45]:
+                            - text: Watch on
+                            - img [ref=f2e47]:
+                              - generic [ref=f2e49]:
+                                - img
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - heading [level=3]
+            - heading "Wil je een donatie doen?" [level=3] [ref=e179]
+          - paragraph [ref=e181]: Klik op de button hieronder om naar het donatieformulier te gaan.
+          - link "Doneren" [ref=e183] [cursor=pointer]:
+            - /url: https://roundtable.nl/doneren/
+            - generic [ref=e184]: Doneren
+        - generic [ref=e189]:
+          - generic [ref=e191]:
+            - generic [ref=e192]:
+              - generic [ref=e193]: 
+              - text: "0"
+            - generic [ref=e194]: Tafels in Nederland
+          - generic [ref=e196]:
+            - generic [ref=e197]:
+              - generic [ref=e198]: 
+              - text: "0"
+            - generic [ref=e199]: Tafelaars in Nederland
+          - generic [ref=e201]:
+            - generic [ref=e202]:
+              - generic [ref=e203]: 
+              - text: "0"
+            - generic [ref=e204]: Tafellanden in de wereld
+          - generic [ref=e206]:
+            - generic [ref=e207]:
+              - generic [ref=e208]: 
+              - text: "0"
+            - generic [ref=e209]: Tafelaars wereldwijd
+        - generic [ref=e213]:
+          - heading "Service" [level=2] [ref=e215]:
+            - generic [ref=e216]: 
+            - text: Service
+          - img [ref=e225]
+        - generic [ref=e237]:
+          - heading "Side-by-Side" [level=2] [ref=e241]:
+            - generic [ref=e242]: 
+            - text: Side-by-Side
+          - link "sidebyside_LadiesCircle" [ref=e250] [cursor=pointer]:
+            - /url: http://www.ladiescircle.nl
+          - link "41club" [ref=e258] [cursor=pointer]:
+            - /url: http://www.41club.nl
+          - link "Agora" [ref=e266] [cursor=pointer]:
+            - /url: https://agoraclubnederland.nl
+        - generic [ref=e270]:
+          - heading "Evenementen" [level=2] [ref=e272]
+          - generic [ref=e276]:
+            - link "AGM 2026 Bergen op Zoom" [ref=e278] [cursor=pointer]:
+              - /url: https://roundtable.nl/evenement/agm-2026-bergen-op-zoom/
+            - generic [ref=e281]:
+              - heading "AGM 2026 Bergen op Zoom" [level=2] [ref=e282]:
+                - link "AGM 2026 Bergen op Zoom" [ref=e283] [cursor=pointer]:
+                  - /url: https://roundtable.nl/evenement/agm-2026-bergen-op-zoom/
+              - heading "5 juni - 08:00 tot 7 juni - 17:00" [level=4] [ref=e284]
+          - link "Bekijk alle evenementen >" [ref=e286] [cursor=pointer]:
+            - /url: http://roundtable.nl/evenementen/
+            - generic [ref=e287]: Bekijk alle evenementen >
+        - generic [ref=e295]:
+          - generic:
+            - generic: 
+    - contentinfo [ref=e310]:
+      - generic [ref=e312]:
+        - generic [ref=e313]:
+          - generic [ref=e314]:
+            - heading "Social Media" [level=4] [ref=e315]
+            - generic [ref=e317]:
+              - link "Facebook" [ref=e318] [cursor=pointer]:
+                - /url: https://www.facebook.com/ROUNDTABLENL/
+                - text: 
+              - link "Twitter" [ref=e319] [cursor=pointer]:
+                - /url: https://twitter.com/Roundtable_NL/
+                - text: 
+              - link "Instagram" [ref=e320] [cursor=pointer]:
+                - /url: https://www.instagram.com/ROUNDTABLE_NL/
+                - text: 
+              - link "LinkedIn" [ref=e321] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/round-table-nl/
+                - text: 
+              - link "YouTube" [ref=e322] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCvyFerA0ICd3TvQ0xAVs4dw/
+                - text: 
+          - generic [ref=e323]:
+            - heading "Over Ons" [level=4] [ref=e324]
+            - list [ref=e326]:
+              - listitem [ref=e327]:
+                - link " Geschiedenis" [ref=e328] [cursor=pointer]:
+                  - /url: https://roundtable.nl/over-ons/geschiedenis/
+                  - text: 
+                  - generic [ref=e329]: 
+                  - text: Geschiedenis
+              - listitem [ref=e330]:
+                - link " Over ons" [ref=e331] [cursor=pointer]:
+                  - /url: https://roundtable.nl/over-ons/
+              - listitem [ref=e332]:
+                - link " Presidentieel motto" [ref=e333] [cursor=pointer]:
+                  - /url: https://roundtable.nl/over-ons/presidentieel-motto/
+                  - text: 
+                  - generic [ref=e334]: 
+                  - text: Presidentieel motto
+              - listitem [ref=e335]:
+                - link " Downloads" [ref=e336] [cursor=pointer]:
+                  - /url: https://roundtable.nl/over-ons/downloads/
+                  - text: 
+                  - generic [ref=e337]: 
+                  - text: Downloads
+        - heading "Sponsoren" [level=4] [ref=e340]
+        - generic [ref=e342]:
+          - heading "Handige links" [level=4] [ref=e343]
+          - list [ref=e345]:
+            - listitem [ref=e346]:
+              - link " Webshop" [ref=e347] [cursor=pointer]:
+                - /url: https://shop.roundtable.nl
+            - listitem [ref=e348]:
+              - link " Leden Login" [ref=e349] [cursor=pointer]:
+                - /url: https://nl.roundtable.world/nl/
+  - generic:
+    - generic [ref=e352]:
+      - generic [ref=e353]: Deze website gebruikt (tracking)cookies en externe services.
+      - link "Ok" [ref=e354] [cursor=pointer]:
+        - /url: "#"
+    - tooltip "Tooltip content"
+  - region "Ga naar de bovenkant":
+    - link " Ga naar de bovenkant":
+      - /url: "#"
+      - text: 
+      - generic: Ga naar de bovenkant
+  - img [ref=e357]

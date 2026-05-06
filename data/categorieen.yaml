@@ -1,0 +1,32 @@
+-
+  id: 69faf4eb301ae2.21216184
+  naam: Contributie
+  type: inkomsten
+-
+  id: 69faf4eb301b88.66411417
+  naam: Activiteiten
+  type: uitgaven
+-
+  id: 69faf4eb301b96.98382812
+  naam: Bestuurskosten
+  type: uitgaven
+-
+  id: 69faf4eb301ba1.24066503
+  naam: 'Huur / Locatie'
+  type: uitgaven
+-
+  id: 69faf4eb301bb3.00742430
+  naam: 'Nationaal (RT NL)'
+  type: uitgaven
+-
+  id: 69faf4eb301bc0.77202281
+  naam: 'Overige inkomsten'
+  type: inkomsten
+-
+  id: 69faf4eb301bd7.96526630
+  naam: 'Overige uitgaven'
+  type: uitgaven
+-
+  id: 69fb20f23c9a70.84591213
+  naam: Honkavonden
+  type: uitgaven
