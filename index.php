@@ -18,6 +18,20 @@ $flash = get_flash();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RT22 Hengelo - Boekhouding</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme');
+            if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+        function toggleTheme() {
+            var d = document.documentElement;
+            var isDark = d.getAttribute('data-theme') === 'dark';
+            d.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+    </script>
 </head>
 <body>
     <nav>
@@ -32,6 +46,10 @@ $flash = get_flash();
             <li><a href="?page=begroting" class="<?= $page === 'begroting' ? 'active' : '' ?>">Begroting</a></li>
             <li><a href="?page=rapportage" class="<?= $page === 'rapportage' ? 'active' : '' ?>">Rapportage</a></li>
         </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+            <span class="icon-moon">&#9790;</span>
+            <span class="icon-sun">&#9728;</span>
+        </button>
     </nav>
 
     <main>
