@@ -5,6 +5,6 @@ datum: '2026-06-02'
 vervaldatum: '2026-06-16'
 omschrijving: 'Contributie 2026-2027'
 bedrag: 1100.0
-status: open
-betaald: 0.0
+status: betaald
+betaald: 1100.0
 aangemaakt: '2026-05-06 14:13:34'
