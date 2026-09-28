@@ -19,6 +19,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         flash('Factuur aangemaakt: ' . $factuur['nummer']);
     }
 
+    if ($_POST['action'] === 'add_external') {
+        $datum = $_POST['datum'] ?? '';
+        $datum_object = DateTimeImmutable::createFromFormat('!Y-m-d', $datum);
+        $bedrag = (float)($_POST['bedrag'] ?? 0);
+        $naam = trim($_POST['ontvanger_naam'] ?? '');
+        $adres = trim($_POST['ontvanger_adres'] ?? '');
+        $postcode = trim($_POST['ontvanger_postcode'] ?? '');
+        $plaats = trim($_POST['ontvanger_plaats'] ?? '');
+        $email = trim($_POST['ontvanger_email'] ?? '');
+        $omschrijving = trim($_POST['omschrijving'] ?? '');
+
+        if (!$datum_object || $datum_object->format('Y-m-d') !== $datum || $bedrag <= 0 || $naam === '' || $adres === '' || $postcode === '' || $plaats === '' || $omschrijving === '' || ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL))) {
+            flash('Vul alle verplichte velden voor de externe factuur correct in.', 'error');
+        } else {
+            $factuur = [
+                'id' => generate_id(),
+                'nummer' => next_factuurnummer(),
+                'ontvanger_type' => 'extern',
+                'ontvanger_naam' => $naam,
+                'ontvanger_bedrijf' => trim($_POST['ontvanger_bedrijf'] ?? ''),
+                'ontvanger_email' => $email,
+                'ontvanger_adres' => $adres,
+                'ontvanger_postcode' => $postcode,
+                'ontvanger_plaats' => $plaats,
+                'datum' => $datum,
+                'vervaldatum' => date('Y-m-d', strtotime($datum . ' +30 days')),
+                'omschrijving' => $omschrijving,
+                'bedrag' => $bedrag,
+                'status' => 'open',
+                'betaald' => 0.0,
+                'aangemaakt' => date('Y-m-d H:i:s'),
+            ];
+            yaml_save('facturen', $factuur);
+            flash('Externe factuur aangemaakt: ' . $factuur['nummer']);
+        }
+    }
+
     if ($_POST['action'] === 'bulk') {
         $leden = yaml_read('leden');
         $bedrag = (float)$_POST['bedrag'];
@@ -140,7 +177,7 @@ usort($facturen, fn($a, $b) => strcmp($b['datum'], $a['datum']));
 </div>
 
 <div class="card">
-    <h2>Enkele factuur</h2>
+    <h2>Enkele factuur voor lid</h2>
     <form method="post">
         <input type="hidden" name="action" value="add">
         <div class="form-row">
@@ -174,6 +211,59 @@ usort($facturen, fn($a, $b) => strcmp($b['datum'], $a['datum']));
 </div>
 
 <div class="card">
+    <h2>Losse factuur voor externe ontvanger</h2>
+    <form method="post">
+        <input type="hidden" name="action" value="add_external">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Naam</label>
+                <input type="text" name="ontvanger_naam" required>
+            </div>
+            <div class="form-group">
+                <label>Bedrijfsnaam (optioneel)</label>
+                <input type="text" name="ontvanger_bedrijf">
+            </div>
+            <div class="form-group">
+                <label>E-mail (optioneel)</label>
+                <input type="email" name="ontvanger_email">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Adres</label>
+                <input type="text" name="ontvanger_adres" required>
+            </div>
+            <div class="form-group">
+                <label>Postcode</label>
+                <input type="text" name="ontvanger_postcode" required>
+            </div>
+            <div class="form-group">
+                <label>Plaats</label>
+                <input type="text" name="ontvanger_plaats" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Datum</label>
+                <input type="date" name="datum" value="<?= date('Y-m-d') ?>" required>
+            </div>
+            <div class="form-group">
+                <label>Omschrijving</label>
+                <input type="text" name="omschrijving" required>
+            </div>
+            <div class="form-group">
+                <label>Bedrag (&euro;)</label>
+                <input type="number" name="bedrag" step="0.01" min="0.01" required>
+            </div>
+            <div class="form-group" style="flex:0">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-primary">Aanmaken</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card">
     <h2>Overzicht facturen</h2>
     <?php if (empty($facturen)): ?>
         <p>Nog geen facturen.</p>
@@ -183,7 +273,7 @@ usort($facturen, fn($a, $b) => strcmp($b['datum'], $a['datum']));
                 <tr>
                     <th>Nummer</th>
                     <th>Datum</th>
-                    <th>Lid</th>
+                    <th>Ontvanger</th>
                     <th>Omschrijving</th>
                     <th class="text-right">Bedrag</th>
                     <th class="text-right">Betaald</th>
@@ -197,7 +287,12 @@ usort($facturen, fn($a, $b) => strcmp($b['datum'], $a['datum']));
                 <tr>
                     <td><strong><?= htmlspecialchars($f['nummer']) ?></strong></td>
                     <td><?= format_date($f['datum']) ?></td>
-                    <td><?= htmlspecialchars($leden_map[$f['lid_id']] ?? '?') ?></td>
+                    <td>
+                        <?= htmlspecialchars(factuur_ontvanger_naam($f, $leden_map)) ?>
+                        <?php if (($f['ontvanger_type'] ?? 'lid') === 'extern'): ?>
+                            <small class="text-muted">(extern)</small>
+                        <?php endif; ?>
+                    </td>
                     <td><?= htmlspecialchars($f['omschrijving']) ?></td>
                     <td class="text-right"><?= format_money($f['bedrag']) ?></td>
                     <td class="text-right"><?= format_money($f['betaald']) ?></td>

@@ -167,8 +167,7 @@ foreach ($leden as $l) $leden_map[$l['id']] = $l['naam'];
 
 $facturen_map = [];
 foreach ($facturen as $f) {
-    $lid_naam = $leden_map[$f['lid_id']] ?? '?';
-    $facturen_map[$f['id']] = $f['nummer'] . ' - ' . $lid_naam;
+    $facturen_map[$f['id']] = $f['nummer'] . ' - ' . factuur_ontvanger_naam($f, $leden_map);
 }
 
 $kosten_map = [];

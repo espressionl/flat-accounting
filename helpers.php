@@ -131,6 +131,14 @@ function current_boekjaar(): string {
     return ($year - 1) . '-' . $year;
 }
 
+function factuur_ontvanger_naam(array $factuur, array $leden_map = []): string {
+    if (($factuur['ontvanger_type'] ?? 'lid') === 'extern') {
+        return ($factuur['ontvanger_bedrijf'] ?? '') ?: ($factuur['ontvanger_naam'] ?? 'Onbekend');
+    }
+
+    return $leden_map[$factuur['lid_id'] ?? ''] ?? 'Onbekend';
+}
+
 function next_factuurnummer(): string {
     $facturen = yaml_read('facturen');
     $jaar = date('Y');

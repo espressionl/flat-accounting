@@ -90,14 +90,14 @@ foreach ($leden as $l) $leden_map[$l['id']] = $l['naam'];
             <table>
                 <thead>
                     <tr>
-                        <th>Lid</th>
+                        <th>Ontvanger</th>
                         <th class="text-right">Open</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($open_facturen as $f): ?>
                     <tr>
-                        <td><?= htmlspecialchars($leden_map[$f['lid_id']] ?? '?') ?></td>
+                        <td><?= htmlspecialchars(factuur_ontvanger_naam($f, $leden_map)) ?></td>
                         <td class="text-right"><?= format_money($f['bedrag'] - $f['betaald']) ?></td>
                     </tr>
                     <?php endforeach; ?>

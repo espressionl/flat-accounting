@@ -10,12 +10,21 @@ if (!$id) { http_response_code(400); exit('Geen factuur ID'); }
 $factuur = yaml_find('facturen', $id);
 if (!$factuur) { http_response_code(404); exit('Factuur niet gevonden'); }
 
-$lid = yaml_find('leden', $factuur['lid_id']);
-$lid_naam = $lid['naam'] ?? 'Onbekend';
-$lid_bedrijf = $lid['bedrijf'] ?? '';
-$lid_adres = $lid['adres'] ?? '';
-$lid_postcode = $lid['postcode'] ?? '';
-$lid_plaats = $lid['plaats'] ?? '';
+$is_externe_factuur = ($factuur['ontvanger_type'] ?? 'lid') === 'extern';
+if ($is_externe_factuur) {
+    $lid_naam = $factuur['ontvanger_naam'] ?? 'Onbekend';
+    $lid_bedrijf = $factuur['ontvanger_bedrijf'] ?? '';
+    $lid_adres = $factuur['ontvanger_adres'] ?? '';
+    $lid_postcode = $factuur['ontvanger_postcode'] ?? '';
+    $lid_plaats = $factuur['ontvanger_plaats'] ?? '';
+} else {
+    $lid = yaml_find('leden', $factuur['lid_id'] ?? '');
+    $lid_naam = $lid['naam'] ?? 'Onbekend';
+    $lid_bedrijf = $lid['bedrijf'] ?? '';
+    $lid_adres = $lid['adres'] ?? '';
+    $lid_postcode = $lid['postcode'] ?? '';
+    $lid_plaats = $lid['plaats'] ?? '';
+}
 $lid_postcode_plaats = trim($lid_postcode . ' ' . $lid_plaats);
 
 // Format datum in Dutch
@@ -24,10 +33,16 @@ $ts = strtotime($factuur['datum']);
 $datum_nl = (int)date('j', $ts) . ' ' . $maanden[(int)date('n', $ts) - 1] . ' ' . date('Y', $ts);
 
 $vervaldatum_ts = strtotime($factuur['vervaldatum']);
+$vervaldatum_nl = (int)date('j', $vervaldatum_ts) . ' ' . $maanden[(int)date('n', $vervaldatum_ts) - 1] . ' ' . date('Y', $vervaldatum_ts);
 
 // Betreft text
 $boekjaar = current_boekjaar();
-$betreft = 'Factuur Contributie Tafelronde 22 - Tafeljaar ' . $boekjaar;
+$betreft = $is_externe_factuur
+    ? $factuur['omschrijving']
+    : 'Factuur Contributie Tafelronde 22 - Tafeljaar ' . $boekjaar;
+$body_text = $is_externe_factuur
+    ? 'Hierbij brengen wij de hieronder omschreven levering of dienst bij u in rekening.'
+    : 'Voor het lidmaatschap van en daaraan inherente participatie aan Tafelronde 22 te Hengelo, breng ik, benoemd tot penningmeester, namens het bestuur ' . htmlspecialchars($boekjaar) . ', u in rekening de contributie voor het Tafeljaar ' . htmlspecialchars($boekjaar) . '.';
 
 // Build address block
 $adres_html = '';
@@ -219,8 +234,7 @@ $html = '<!DOCTYPE html>
 
     <!-- Body text -->
     <div class="body-text">
-        <p>Voor het lidmaatschap van en daaraan inherente participatie aan Tafelronde 22 te Hengelo, breng ik, benoemd tot
-        penningmeester, namens het bestuur ' . htmlspecialchars($boekjaar) . ', u in rekening de contributie voor het Tafeljaar ' . htmlspecialchars($boekjaar) . '.</p>
+        <p>' . $body_text . '</p>
     </div>
 
     <!-- Invoice table -->
@@ -249,7 +263,7 @@ $html = '<!DOCTYPE html>
 
     <!-- Payment info -->
     <div class="betaalinfo">
-        <p>Gelieve dit bedrag te voldoen binnen 14 dagen na dagtekening op IBAN bankrekeningnummer
+        <p>Gelieve dit bedrag uiterlijk ' . htmlspecialchars($vervaldatum_nl) . ' te voldoen op IBAN bankrekeningnummer
         <span class="iban">NL08 ABNA 0109 6619 23</span> tnv Ronde Tafel 22 onder vermelding van bovengenoemd
         factuurnummer.</p>
     </div>

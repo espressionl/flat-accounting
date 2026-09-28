@@ -252,7 +252,7 @@ $open_facturen = array_filter($facturen, fn($f) => $f['status'] !== 'betaald');
                 </tr>
                 <tr>
                     <th>Factuur</th>
-                    <th>Lid</th>
+                    <th>Ontvanger</th>
                     <th class="text-right">Openstaand</th>
                 </tr>
             </thead>
@@ -260,7 +260,7 @@ $open_facturen = array_filter($facturen, fn($f) => $f['status'] !== 'betaald');
                 <?php foreach ($open_facturen as $f): ?>
                 <tr>
                     <td><?= htmlspecialchars($f['nummer']) ?></td>
-                    <td><?= htmlspecialchars($leden_map[$f['lid_id']] ?? '?') ?></td>
+                    <td><?= htmlspecialchars(factuur_ontvanger_naam($f, $leden_map)) ?></td>
                     <td class="text-right"><?= format_money($f['bedrag'] - $f['betaald']) ?></td>
                 </tr>
                 <?php endforeach; ?>
